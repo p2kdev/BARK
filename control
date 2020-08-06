@@ -1,7 +1,7 @@
 Package: com.easy-z.bark
 Name: BARK
 Depends: mobilesubstrate
-Version: 2.0.0
+Version: 2.0.1
 Architecture: iphoneos-arm
 Description: Make your keyboard more OLED friendly.
 Maintainer: Easy-Z

@@ -1,31 +1,46 @@
 @interface UIKeyboard : UIView
-@end
-@interface UIKeyboardDockView : UIView
+  +(UIView*)activeKeyboard;
+  @property (nonatomic, assign) bool goOled;
 @end
 
-bool isDarkKeyboard = YES;
+@interface UIKeyboardDockView : UIView
+  @property (nonatomic, assign) bool goOled;
+@end
+
+static bool isDark = NO;
 
 %hook UIKeyboard
-    -(void)layoutSubviews {
-        %orig;
-        if (isDarkKeyboard)
-          self.backgroundColor = [UIColor blackColor];
-    }
+-(void)didMoveToWindow
+{
+  %orig;
+  if (isDark)
+    self.backgroundColor = [UIColor blackColor];
+}
 %end
 
 %hook UIKBRenderConfig
     -(void)setLightKeyboard:(BOOL)arg1 {
-        isDarkKeyboard = !arg1;
+        isDark = !arg1;
         %orig(arg1);
+    }
+
+    -(bool)lightKeyboard
+    {
+      bool orig = %orig;
+      isDark = !orig;
+      return orig;
     }
 %end
 
 %hook UIKeyboardDockView
-    -(void)layoutSubviews {
-        %orig;
-        if (isDarkKeyboard)
-          self.backgroundColor = [UIColor blackColor];
-    }
+
+  -(void)didMoveToWindow
+  {
+    %orig;
+    if (isDark)
+      self.backgroundColor = [UIColor blackColor];
+  }
+
 %end
 
 %ctor
