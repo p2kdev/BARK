@@ -1,10 +1,14 @@
 @interface UIKeyboard : UIView
   +(UIView*)activeKeyboard;
-  @property (nonatomic, assign) bool goOled;
+@end
+
+@interface TUIPredictionView : UIView
+@end
+
+@interface TUIPredictionViewCell : UIView
 @end
 
 @interface UIKeyboardDockView : UIView
-  @property (nonatomic, assign) bool goOled;
 @end
 
 static bool isDark = NO;
@@ -16,6 +20,35 @@ static bool isDark = NO;
   if (isDark)
     self.backgroundColor = [UIColor blackColor];
 }
+%end
+
+%hook TUIPredictionViewCell
+-(void)didMoveToWindow
+{
+  %orig;
+  if (isDark)
+    self.backgroundColor = [UIColor blackColor];
+}
+%end
+
+%hook TUIPredictionView
+-(void)didMoveToWindow
+{
+  %orig;
+  if (isDark)
+    self.backgroundColor = [UIColor blackColor];
+}
+%end
+
+%hook UIKeyboardDockView
+
+  -(void)didMoveToWindow
+  {
+    %orig;
+    if (isDark)
+      self.backgroundColor = [UIColor blackColor];
+  }
+
 %end
 
 %hook UIKBRenderConfig
@@ -30,17 +63,6 @@ static bool isDark = NO;
       isDark = !orig;
       return orig;
     }
-%end
-
-%hook UIKeyboardDockView
-
-  -(void)didMoveToWindow
-  {
-    %orig;
-    if (isDark)
-      self.backgroundColor = [UIColor blackColor];
-  }
-
 %end
 
 %ctor
@@ -69,7 +91,9 @@ static bool isDark = NO;
 		}
 
 		if(shouldLoad)
-		{
+    {
+      NSBundle *bundle = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/TextInputUI.framework"];
+      if (!bundle.loaded) [bundle load];
       %init;
     }
 }
