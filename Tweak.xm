@@ -31,6 +31,14 @@ static bool isDark = NO;
 }
 %end
 
+//Removes animation for language indicator
+%hook UIKBTree
+  -(BOOL)noLanguageIndicator
+  {
+    return YES;
+  }
+%end
+
 %hook TUIPredictionView
 -(void)didMoveToWindow
 {
