@@ -19,6 +19,8 @@ static bool isDark = NO;
   %orig;
   if (isDark)
     self.backgroundColor = [UIColor blackColor];
+  else
+    self.backgroundColor = nil;
 }
 %end
 
@@ -28,6 +30,8 @@ static bool isDark = NO;
   %orig;
   if (isDark)
     self.backgroundColor = [UIColor blackColor];
+  else
+    self.backgroundColor = nil;
 }
 %end
 
@@ -45,6 +49,8 @@ static bool isDark = NO;
   %orig;
   if (isDark)
     self.backgroundColor = [UIColor blackColor];
+  else
+    self.backgroundColor = nil;
 }
 %end
 
@@ -55,6 +61,8 @@ static bool isDark = NO;
     %orig;
     if (isDark)
       self.backgroundColor = [UIColor blackColor];
+    else
+      self.backgroundColor = nil;      
   }
 
 %end
