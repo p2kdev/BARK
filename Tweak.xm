@@ -14,25 +14,25 @@
 static bool isDark = NO;
 
 %hook UIKeyboard
--(void)didMoveToWindow
-{
-  %orig;
-  if (isDark)
-    self.backgroundColor = [UIColor blackColor];
-  else
-    self.backgroundColor = nil;
-}
+  -(void)layoutSubviews
+  {
+    %orig;
+    if (isDark)
+      self.backgroundColor = [UIColor blackColor];
+    else
+      self.backgroundColor = nil;
+  }
 %end
 
 %hook TUIPredictionViewCell
--(void)didMoveToWindow
-{
-  %orig;
-  if (isDark)
-    self.backgroundColor = [UIColor blackColor];
-  else
-    self.backgroundColor = nil;
-}
+  -(void)layoutSubviews
+  {
+    %orig;
+    if (isDark)
+      self.backgroundColor = [UIColor blackColor];
+    else
+      self.backgroundColor = nil;
+  }
 %end
 
 //Removes animation for language indicator
@@ -44,27 +44,26 @@ static bool isDark = NO;
 %end
 
 %hook TUIPredictionView
--(void)didMoveToWindow
-{
-  %orig;
-  if (isDark)
-    self.backgroundColor = [UIColor blackColor];
-  else
-    self.backgroundColor = nil;
-}
-%end
-
-%hook UIKeyboardDockView
-
-  -(void)didMoveToWindow
+  -(void)layoutSubviews
   {
     %orig;
     if (isDark)
       self.backgroundColor = [UIColor blackColor];
     else
-      self.backgroundColor = nil;      
+      self.backgroundColor = nil;
   }
+%end
 
+%hook UIKeyboardDockView
+
+  -(void)layoutSubviews
+  {
+    %orig;
+    if (isDark)
+      self.backgroundColor = [UIColor blackColor];
+    else
+      self.backgroundColor = nil;
+  }
 %end
 
 %hook UIKBRenderConfig
