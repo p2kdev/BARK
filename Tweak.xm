@@ -5,6 +5,9 @@
 @interface TUIPredictionView : UIView
 @end
 
+@interface TUIEmojiSearchInputView : UIView
+@end
+
 @interface TUIPredictionViewCell : UIView
 @end
 
@@ -25,6 +28,17 @@ static bool isDark = NO;
 %end
 
 %hook TUIPredictionViewCell
+  -(void)layoutSubviews
+  {
+    %orig;
+    if (isDark)
+      self.backgroundColor = [UIColor blackColor];
+    else
+      self.backgroundColor = nil;
+  }
+%end
+
+%hook TUIEmojiSearchInputView
   -(void)layoutSubviews
   {
     %orig;
