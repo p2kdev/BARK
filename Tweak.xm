@@ -111,10 +111,10 @@ static bool isDark = NO;
 				BOOL isApplication = [executablePath rangeOfString: @"/Application/"].location != NSNotFound || [executablePath rangeOfString: @"/Applications/"].location != NSNotFound;
 				BOOL isFileProvider = [[processName lowercaseString] rangeOfString: @"fileprovider"].location != NSNotFound;
 				BOOL skip = [processName isEqualToString: @"AdSheet"] || [processName isEqualToString: @"CoreAuthUI"]
-							|| [processName isEqualToString: @"InCallService"] || [processName isEqualToString: @"MessagesNotificationViewService"]
+							|| [processName isEqualToString: @"InCallService"] || [processName isEqualToString:@"Spotlight"] || [processName isEqualToString: @"MessagesNotificationViewService"]
 							|| [executablePath rangeOfString: @".appex/"].location != NSNotFound;
 
-				if((!isFileProvider && isApplication && !skip) || isSpringboard)
+				if(!isFileProvider && isApplication && !skip && !isSpringboard)
 					shouldLoad = YES;
 			}
 		}
